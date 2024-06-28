@@ -1,38 +1,37 @@
 package ru.netology.javaqa;
 
 public class Radio {
-    private int currentStation; // Номер текущей радиостанции
-    private int volume; // Громкость звука
+    private int currentStation;
+    private int volume;
+    private final int totalStations;
+
+
+    public Radio(int totalStations) {
+        this.currentStation = 0;
+        this.volume = 50; // Средняя громкость
+        this.totalStations = totalStations;
+    }
 
 
     public Radio() {
-
-        this.currentStation = 0;
-        this.volume = 50; //средняя громкость
+        this(10);
     }
 
     public void next() {
-        if (currentStation < 9) {
-            currentStation++;
-        } else {
-            currentStation = 0;
-        }
+        currentStation = (currentStation + 1) % totalStations;
     }
 
-
     public void prev() {
-        if (currentStation > 0) {
-            currentStation--;
+        if (currentStation == 0) {
+            currentStation = totalStations - 1;
         } else {
-            currentStation = 9;
+            currentStation--;
         }
     }
 
     public void setStation(int station) {
-        if (station >= 0 && station <= 9) {
+        if (station >= 0 && station < totalStations) {
             currentStation = station;
-        } else {
-            System.out.println();
         }
     }
 
@@ -54,6 +53,5 @@ public class Radio {
         if (volume > 0) {
             volume--;
         }
-
     }
 }

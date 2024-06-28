@@ -79,5 +79,28 @@ public class RadioTest {
         radio.decreaseVolume();
         assertEquals(0, radio.getVolume());
     }
+    @Test
+    void shouldWrapAroundToFirstStationFromLast() {
+        Radio radio = new Radio(10);
+        radio.setStation(9);
+        radio.next();
+        assertEquals(0, radio.getCurrentStation());
+    }
+
+    @Test
+    void shouldWrapAroundToLastStationFromFirst() {
+        Radio radio = new Radio(10);
+        radio.setStation(0);
+        radio.prev();
+        assertEquals(9, radio.getCurrentStation());
+    }
+
+    @Test
+    void shouldNotSetStationBeyondRange() {
+        Radio radio = new Radio(10);
+        radio.setStation(10);
+        assertEquals(0, radio.getCurrentStation());
+    }
 }
+
 
